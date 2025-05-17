@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, CreateDateColumn } from 'typeorm';
 import { User } from '../users/user.entity';
 import { Comment } from '../comments/comment.entity';
+import { Like } from './like.entity';
 
 @Entity('posts')
 export class Post {
@@ -16,9 +17,12 @@ export class Post {
   @CreateDateColumn()
   createdAt: Date;
 
-  @ManyToOne(() => User, (user) => user.posts, { eager: true })
-  user: User;
+  @ManyToOne(() => User, (author) => author.posts, { eager: true })
+  author: User;
 
   @OneToMany(() => Comment, (comment) => comment.post)
   comments: Comment[];
+
+  @OneToMany(() => Like, (like) => like.post)
+  likes: Like[];
 }

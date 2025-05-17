@@ -2,9 +2,8 @@ import {
   BadRequestException,
   Body,
   Controller,
-  Get,
+  HttpCode,
   Post,
-  Req,
   Res,
   UnauthorizedException,
   UseGuards,
@@ -22,6 +21,7 @@ export class AuthController {
     private readonly configService: ConfigService,
   ) {}
 
+  @HttpCode(201)
   @Post('register')
   async signUp(@Body() userDto: AuthUserDto) {
     try {
@@ -31,6 +31,7 @@ export class AuthController {
     }
   }
 
+  @HttpCode(200)
   @Post('login')
   async sigIn(
     @Body() userDto: AuthUserDto,
@@ -42,7 +43,7 @@ export class AuthController {
 
       res.cookie('token', token, {
         httpOnly: true,
-        secure: nodeEnv === 'development',
+        secure: nodeEnv === 'production',
         maxAge: 360000,
         sameSite: 'strict',
       });
@@ -53,9 +54,17 @@ export class AuthController {
     }
   }
 
-  @Get('user')
+  @Post('logout')
   @UseGuards(JwtAuthGuard)
-  getUser(@Req() req) {
-    return req.user
+  async signOut(@Res() res: Response) {
+    const nodeEnv = this.configService.get('nodeEnv');
+
+    res.clearCookie('token', {
+      httpOnly: true,
+      secure: nodeEnv === 'production',
+      sameSite: 'strict',
+    })
+
+    return res.status(200).json({message: 'Successfully logged out'})
   }
 }

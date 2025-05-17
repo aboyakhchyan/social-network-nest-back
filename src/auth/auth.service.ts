@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
-  IAuthUserBody,
+  AuthUserBody,
   IAuthUserResponse,
 } from 'src/interfaces/user.interface';
 import { User } from 'src/users/user.entity';
@@ -17,7 +17,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async signUp(user: IAuthUserBody): Promise<IAuthUserResponse> {
+  async signUp(user: AuthUserBody): Promise<IAuthUserResponse> {
     const { username, password } = user;
 
     const checkUser = await this.userRepo.findOne({
@@ -44,8 +44,8 @@ export class AuthService {
   }
 
   async signIn(
-    user: IAuthUserBody,
-  ): Promise<{ user: IAuthUserBody; token: string }> {
+    user: AuthUserBody,
+  ): Promise<{ user: AuthUserBody; token: string }> {
     const { username, password } = user;
 
     const checkUser = await this.userRepo.findOne({
