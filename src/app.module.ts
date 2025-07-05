@@ -24,7 +24,7 @@ import { AuthModule } from './auth/auth.module';
     PostsModule,
     UsersModule,
     CommentsModule,
-    AuthModule
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

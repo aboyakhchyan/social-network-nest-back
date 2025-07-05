@@ -53,13 +53,12 @@ export class PostsController {
     }
   }
 
-
   @HttpCode(200)
   @Delete('post/:id')
   async deletePost(@Param('id') id: number) {
     try {
       return await this.postsService.deletePost(id);
-    }catch (err) {
+    } catch (err) {
       throw new BadRequestException(err.message || 'Something went wrong');
     }
   }

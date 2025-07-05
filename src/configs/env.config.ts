@@ -1,5 +1,5 @@
 export default () => ({
-  nodeEnv: process.env.NODE_ENV || "development",
+  nodeEnv: process.env.NODE_ENV || 'development',
   api: {
     port: Number(process.env.API_PORT) || 3344,
     host: process.env.API_HOST || 'localhost',

@@ -18,7 +18,7 @@ export const typeOrmConfig = (
     password: db.password,
     database: db.name,
     autoLoadEntities: true,
-    entities: [User, Post, Like, Comment], 
-    synchronize: false
+    entities: [User, Post, Like, Comment],
+    synchronize: false,
   };
 };
