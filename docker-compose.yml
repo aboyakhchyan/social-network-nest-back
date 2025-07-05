@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  nest-app:
+    build: .
+    container_name: nest-app
+    ports:
+      - '3345:3344'
+    depends_on:
+      - db
+    env_file:
+      - .env
+  db:
+    image: postgres:13
+    container_name: social-network-db
+    ports:
+      - '5433:5432'
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
