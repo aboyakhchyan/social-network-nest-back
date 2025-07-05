@@ -23,7 +23,7 @@ async function bootstrap() {
   const api = configService.get('api');
 
   await app.listen(api.port, () => {
-    console.log(`Server runing in http://${api.host}:${api.port}`);
+    console.log(`Server runing in - http://${api.host}:${api.port}`);
   });
 }
 bootstrap();
