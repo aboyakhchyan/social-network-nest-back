@@ -1,28 +1,34 @@
-import { Comment } from "src/comments/comment.entity";
-import { Like } from "src/posts/like.entity";
-import { Post } from "src/posts/post.entity";
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Comment } from 'src/comments/comment.entity';
+import { Like } from 'src/posts/like.entity';
+import { Post } from 'src/posts/post.entity';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity('users')
 export class User {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column({unique: true})
-    username: string;
+  @Column({ unique: true })
+  username: string;
 
-    @Column()
-    password: string;
+  @Column()
+  password: string;
 
-    @CreateDateColumn()
-    createdAt: Date;
+  @CreateDateColumn()
+  createdAt: Date;
 
-    @OneToMany(() => Post, (post) => post.author)
-    posts: Post[];
+  @OneToMany(() => Post, (post) => post.author)
+  posts: Post[];
 
-    @OneToMany(() => Comment, (comment) => comment.user)
-    comments: Comment[];
+  @OneToMany(() => Comment, (comment) => comment.user)
+  comments: Comment[];
 
-    @OneToMany(() => Like, (like) => like.user)
-    likes: Like[];
+  @OneToMany(() => Like, (like) => like.user)
+  likes: Like[];
 }

@@ -9,7 +9,7 @@ import { AuthUserBody } from 'src/interfaces/user.interface';
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(configService: ConfigService) {
     const jwt = configService.get('jwt');
-    
+
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([
         (request: Request) => {

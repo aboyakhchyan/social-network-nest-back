@@ -55,17 +55,21 @@ export class UsersController {
   @HttpCode(202)
   @Patch('user/:id')
   @UseGuards(JwtAuthGuard)
-  async editUser(@Req() req: Request,@Param('id') id: number, @Body() userDto: EditUserDto) {
-    const {id: userId} = req.user as {id: number};
+  async editUser(
+    @Req() req: Request,
+    @Param('id') id: number,
+    @Body() userDto: EditUserDto,
+  ) {
+    const { id: userId } = req.user as { id: number };
 
-    if(userId !== id) {
+    if (userId !== id) {
       throw new ForbiddenException('Forbidden');
     }
 
     try {
-        return await this.usersService.editUser(id, userDto);
+      return await this.usersService.editUser(id, userDto);
     } catch (err) {
-        throw new BadRequestException(err.message || 'Something went wrong');
+      throw new BadRequestException(err.message || 'Something went wrong');
     }
   }
 }
