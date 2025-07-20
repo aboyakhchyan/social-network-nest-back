@@ -8,8 +8,12 @@ services:
       - '3345:3344'
     depends_on:
       - db
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules  
     env_file:
       - .env
+    restart: unless-stopped
   db:
     image: postgres:13
     container_name: social-network-db
